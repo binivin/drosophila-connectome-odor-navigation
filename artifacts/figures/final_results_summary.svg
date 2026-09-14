@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <style>
+    .title{font:700 30px Arial,sans-serif;fill:#111}.h{font:700 18px Arial,sans-serif;fill:#111}.t{font:15px Arial,sans-serif;fill:#222}.s{font:13px Arial,sans-serif;fill:#333}.box{fill:#fff;stroke:#222;stroke-width:1.5}.bar{fill:#7f8c8d}.bar2{fill:#95a5a6}.accent{fill:#ecf0f1;stroke:#222;stroke-width:1.2}
+  </style>
+  <rect width="1200" height="720" fill="#fafafa"/>
+  <text x="600" y="45" text-anchor="middle" class="title">Final Connectome-Constrained Odor Navigation Results</text>
+
+  <text x="45" y="90" class="h">A. Final architecture</text>
+  <rect x="55" y="115" width="180" height="76" rx="10" class="box"/><text x="145" y="145" text-anchor="middle" class="h">Odor plume</text><text x="145" y="170" text-anchor="middle" class="s">random source + wind</text>
+  <rect x="280" y="115" width="180" height="76" rx="10" class="box"/><text x="370" y="145" text-anchor="middle" class="h">Antennae</text><text x="370" y="170" text-anchor="middle" class="s">bilateral odor response</text>
+  <rect x="505" y="115" width="240" height="76" rx="10" class="box"/><text x="625" y="145" text-anchor="middle" class="h">Sensory encoding</text><text x="625" y="170" text-anchor="middle" class="s">FB5AB + PFN wind/heading</text>
+  <rect x="505" y="235" width="240" height="86" rx="10" class="box"/><text x="625" y="267" text-anchor="middle" class="h">532-neuron circuit</text><text x="625" y="293" text-anchor="middle" class="s">5,274 recurrent edges</text>
+  <rect x="505" y="365" width="240" height="76" rx="10" class="box"/><text x="625" y="395" text-anchor="middle" class="h">PFL2 + PFL3</text><text x="625" y="420" text-anchor="middle" class="s">36-neuron frozen MLP readout</text>
+  <rect x="280" y="365" width="180" height="76" rx="10" class="box"/><text x="370" y="395" text-anchor="middle" class="h">Motor command</text><text x="370" y="420" text-anchor="middle" class="s">forward + angular velocity</text>
+  <rect x="55" y="365" width="180" height="76" rx="10" class="box"/><text x="145" y="395" text-anchor="middle" class="h">Embodied fly</text><text x="145" y="420" text-anchor="middle" class="s">continuous pose</text>
+  <g stroke="#222" stroke-width="2" fill="none" marker-end="url(#a)"><path d="M235 153H280"/><path d="M460 153H505"/><path d="M625 191V235"/><path d="M625 321V365"/><path d="M505 403H460"/><path d="M280 403H235"/><path d="M145 365 C145 270,280 230,330 191"/></g>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#222"/></marker></defs>
+  <text x="55" y="480" class="s">Goal coordinates are used only for evaluation and stopping.</text>
+
+  <text x="805" y="90" class="h">B. 100 unseen scenarios</text>
+  <line x1="835" y1="340" x2="1120" y2="340" stroke="#222"/><line x1="835" y1="140" x2="835" y2="340" stroke="#222"/>
+  <rect x="875" y="200" width="80" height="140" class="bar"/><rect x="1010" y="198" width="80" height="142" class="bar2"/>
+  <text x="915" y="188" text-anchor="middle" class="h">70%</text><text x="1050" y="186" text-anchor="middle" class="h">71%</text>
+  <text x="915" y="365" text-anchor="middle" class="t">v3 final</text><text x="1050" y="365" text-anchor="middle" class="t">v6 + casting</text>
+  <text x="970" y="405" text-anchor="middle" class="s">paired difference +1%</text><text x="970" y="427" text-anchor="middle" class="s">bootstrap 95% CI: -8% to +10%</text><text x="970" y="449" text-anchor="middle" class="s">McNemar p = 1.000</text>
+
+  <text x="805" y="505" class="h">C. Paired outcomes</text>
+  <rect x="820" y="535" width="330" height="130" rx="10" class="accent"/>
+  <text x="845" y="565" class="t">Both success</text><text x="1120" y="565" text-anchor="end" class="h">60</text>
+  <text x="845" y="593" class="t">v3 fail → v6 success</text><text x="1120" y="593" text-anchor="end" class="h">11</text>
+  <text x="845" y="621" class="t">v3 success → v6 fail</text><text x="1120" y="621" text-anchor="end" class="h">10</text>
+  <text x="845" y="649" class="t">Both fail</text><text x="1120" y="649" text-anchor="end" class="h">19</text>
+
+  <text x="55" y="555" class="h">Final interpretation</text>
+  <text x="55" y="585" class="t">The frozen v3 controller reached 70/100 successes on completely unseen randomized trials.</text>
+  <text x="55" y="612" class="t">Explicit casting did not provide a reliable held-out advantage, so the simpler v3 was retained.</text>
+  <text x="55" y="639" class="t">Checkpoint and full physical trajectory parity were verified exactly.</text>
+  <text x="55" y="680" class="s">Scope: 532-neuron MaleCNS-derived navigation-related subcircuit; not a whole-brain simulation.</text>
+</svg>
