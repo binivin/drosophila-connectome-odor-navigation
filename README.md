@@ -4,6 +4,8 @@
 [![Field](https://img.shields.io/badge/Field-Computational%20Neuroscience-green)](#)
 [![Method](https://img.shields.io/badge/Method-Connectome--constrained%20RNN-purple)](#)
 [![Status](https://img.shields.io/badge/Status-Final%20controller%20frozen-brightgreen)](#)
+[![Kaggle Dataset](https://img.shields.io/badge/Kaggle-Dataset-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/datasets/binivin/drosophila-connectome-odor-navigation)
+[![Kaggle Notebook](https://img.shields.io/badge/Kaggle-Notebook-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/code/binivin/connectome-odor-navigation-in-drosophila)
 
 > Closed-loop odor-source navigation in a virtual *Drosophila* using a 532-neuron MaleCNS-derived recurrent subcircuit, modeled sensory inputs, and a learned PFL motor readout.
 
@@ -32,10 +34,10 @@ The system should be interpreted as a **connectome-constrained controller**, not
 
 A qualitative demo is generated directly from the **same frozen v3 checkpoint-driven runtime** used in the public release.
 
-When the media files are present, use:
+[![Frozen v3 qualitative demo](artifacts/media/final_v3_navigation_demo_poster.png)](artifacts/media/final_v3_navigation_demo.mp4)
 
-- [`artifacts/media/final_v3_navigation_demo.mp4`](artifacts/media/final_v3_navigation_demo.mp4) — simulation video
-- [`artifacts/media/final_v3_navigation_demo_poster.png`](artifacts/media/final_v3_navigation_demo_poster.png) — final-frame preview
+- [Watch or download the MP4](artifacts/media/final_v3_navigation_demo.mp4)
+- [Open the final-frame poster](artifacts/media/final_v3_navigation_demo_poster.png)
 
 The demo visualizes the intermittent plume, odor source, wind direction, fly trajectory, heading, bilateral antenna positions, odor responses, distance to source, and continuous motor commands.
 
@@ -49,6 +51,8 @@ python src/render_demo.py --seed 880000000
 
 The default seed is a known successful trial from the already-completed frozen held-out benchmark. Choosing it for visualization does not change or re-evaluate the benchmark.
 
+The companion Kaggle notebook also includes a **fresh post-freeze random trial** section. Those newly sampled trials are qualitative exploration only and do not update, replace, or tune the frozen 100-scenario benchmark.
+
 ---
 
 ## Graphical summary
@@ -56,6 +60,17 @@ The default seed is a known successful trial from the already-completed frozen h
 ![Final results summary](artifacts/figures/final_results_summary.svg)
 
 The final v3 controller achieved 70% success on the held-out benchmark. The explicit casting extension reached 71%, but its matched improvement was not reliable: it rescued 11 trials while regressing 10, with exact McNemar p = 1.000.
+
+---
+
+## Kaggle companion release
+
+The public Kaggle release provides a compact entry point for viewing the frozen artifacts and reproducing the qualitative runtime behavior.
+
+- **Dataset:** [Drosophila Connectome Odor Navigation](https://www.kaggle.com/datasets/binivin/drosophila-connectome-odor-navigation)
+- **Notebook:** [Connectome Odor Navigation in Drosophila](https://www.kaggle.com/code/binivin/connectome-odor-navigation-in-drosophila)
+
+The Dataset contains the frozen result tables, checkpoint, runtime manifest, figures, and demo media. The Notebook summarizes the frozen benchmark and includes a fresh random-trial section using the frozen v3 checkpoint. Fresh trials remain separate from the reported held-out statistics.
 
 ---
 
@@ -315,6 +330,10 @@ python src/plot_final_results.py
 notebooks/connectome_odor_navigation_final.ipynb
 ```
 
+Or use the live Kaggle companion notebook:
+
+https://www.kaggle.com/code/binivin/connectome-odor-navigation-in-drosophila
+
 ---
 
 ## Documentation
@@ -356,4 +375,4 @@ notebooks/connectome_odor_navigation_final.ipynb
 
 The controller, held-out benchmark, checkpoint, and runtime parity tests are frozen. Further tuning on the existing development or held-out sets is intentionally stopped.
 
-The GitHub core release is organized independently of the later companion Kaggle release; public Kaggle links will be added only after the Kaggle dataset and notebook are finalized.
+The GitHub core release and companion Kaggle Dataset/Notebook are now linked as the public release surfaces. Fresh random trials in the Kaggle notebook are post-freeze qualitative demonstrations only and do not alter the frozen benchmark.
