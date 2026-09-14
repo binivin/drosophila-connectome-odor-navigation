@@ -2,7 +2,7 @@ numpy
 pandas
 scipy
 matplotlib
-scikit-learn
+scikit-learn==1.7.2
 joblib
 pyarrow
 networkx
