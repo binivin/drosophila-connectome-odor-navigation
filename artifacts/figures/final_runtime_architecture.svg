@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <style>.title{font:700 30px Arial,sans-serif;fill:#111}.h{font:700 18px Arial,sans-serif;fill:#111}.t{font:15px Arial,sans-serif;fill:#222}.s{font:13px Arial,sans-serif;fill:#333}.box{fill:#fff;stroke:#222;stroke-width:1.5}.dash{fill:#fff;stroke:#222;stroke-width:1.5;stroke-dasharray:7 5}.frame{fill:#f7f7f7;stroke:#111;stroke-width:2}</style>
+  <rect width="1200" height="760" fill="#fafafa"/>
+  <text x="600" y="45" text-anchor="middle" class="title">Checkpoint-Driven Final Navigation Runtime</text>
+
+  <rect x="40" y="110" width="200" height="85" rx="10" class="box"/>
+  <text x="140" y="142" text-anchor="middle" class="h">Random scenario</text>
+  <text x="140" y="168" text-anchor="middle" class="s">start + odor source</text><text x="140" y="187" text-anchor="middle" class="s">wind + initial heading</text>
+
+  <rect x="300" y="110" width="220" height="85" rx="10" class="box"/>
+  <text x="410" y="142" text-anchor="middle" class="h">Dynamic odor plume</text>
+  <text x="410" y="170" text-anchor="middle" class="s">stochastic filament transport</text>
+
+  <rect x="300" y="300" width="220" height="85" rx="10" class="box"/>
+  <text x="410" y="332" text-anchor="middle" class="h">Embodied fly</text>
+  <text x="410" y="360" text-anchor="middle" class="s">continuous position + heading</text>
+
+  <rect x="580" y="110" width="220" height="85" rx="10" class="box"/>
+  <text x="690" y="142" text-anchor="middle" class="h">Bilateral antennae</text>
+  <text x="690" y="170" text-anchor="middle" class="s">left/right receptor response</text>
+
+  <rect x="845" y="85" width="315" height="410" rx="14" class="frame"/>
+  <text x="1002" y="118" text-anchor="middle" class="h">Frozen v3 controller</text>
+  <text x="1002" y="142" text-anchor="middle" class="s">loaded from checkpoint</text>
+
+  <rect x="875" y="170" width="115" height="70" rx="9" class="box"/><text x="932" y="198" text-anchor="middle" class="h">Odor</text><text x="932" y="221" text-anchor="middle" class="s">FB5AB</text>
+  <rect x="1015" y="170" width="115" height="70" rx="9" class="box"/><text x="1072" y="198" text-anchor="middle" class="h">PFN</text><text x="1072" y="221" text-anchor="middle" class="s">wind + heading</text>
+  <rect x="890" y="275" width="225" height="85" rx="9" class="box"/><text x="1002" y="307" text-anchor="middle" class="h">532-neuron recurrence</text><text x="1002" y="335" text-anchor="middle" class="s">5,274 recurrent edges</text>
+  <rect x="890" y="390" width="225" height="70" rx="9" class="box"/><text x="1002" y="418" text-anchor="middle" class="h">PFL2 + PFL3</text><text x="1002" y="442" text-anchor="middle" class="s">36-neuron frozen MLP</text>
+
+  <rect x="820" y="555" width="330" height="82" rx="10" class="box"/>
+  <text x="985" y="586" text-anchor="middle" class="h">Continuous motor command</text>
+  <text x="985" y="612" text-anchor="middle" class="s">forward speed + angular velocity</text>
+
+  <rect x="300" y="555" width="220" height="82" rx="10" class="box"/>
+  <text x="410" y="586" text-anchor="middle" class="h">Physical update</text><text x="410" y="612" text-anchor="middle" class="s">new pose + arena clipping</text>
+
+  <rect x="580" y="555" width="180" height="82" rx="10" class="dash"/>
+  <text x="670" y="585" text-anchor="middle" class="h">Evaluation</text><text x="670" y="612" text-anchor="middle" class="s">distance / success</text>
+
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#222"/></marker></defs>
+  <g stroke="#222" stroke-width="2" fill="none" marker-end="url(#a)">
+    <path d="M240 152H300"/><path d="M520 152H580"/><path d="M800 152L875 205"/><path d="M520 340L1015 205"/><path d="M932 240L970 275"/><path d="M1072 240L1035 275"/><path d="M1002 360V390"/><path d="M1002 460V555"/><path d="M820 596H520"/><path d="M410 555V385"/><path d="M410 300L610 195"/>
+  </g>
+  <g stroke="#555" stroke-width="1.6" fill="none" stroke-dasharray="7 5" marker-end="url(#a)"><path d="M520 345L610 555"/><path d="M240 170L670 555"/></g>
+  <text x="600" y="700" text-anchor="middle" class="h">Goal coordinates are never supplied to the neural controller</text>
+  <text x="600" y="728" text-anchor="middle" class="s">They are used only for stopping, evaluation, and visualization.</text>
+</svg>
