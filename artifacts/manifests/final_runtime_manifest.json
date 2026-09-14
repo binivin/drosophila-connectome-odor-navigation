@@ -1,0 +1,33 @@
+{
+  "status": "FINAL_FROZEN_RUNTIME",
+  "controller": "v3_connectome_constrained_PFL36",
+  "checkpoint_file": "final_v3_connectome_controller.joblib",
+  "checkpoint_sha256": "8d6b557bb592f29100fdf8d95cb3ccd91f608516f6862e3f772491461e983acc",
+  "runtime_function": "simulate_random_trial_checkpoint",
+  "recurrent_neurons": 532,
+  "recurrent_edges": 5274,
+  "motor_readout": "PFL2 + PFL3",
+  "motor_readout_neurons": 36,
+  "recurrent_leak": 0.5,
+  "forward_speed_bounds": [0.0, 0.85],
+  "angular_velocity_bounds": [-2.5, 2.5],
+  "heldout_evaluation": {
+    "n_trials": 100,
+    "successes": 70,
+    "success_rate": 0.7,
+    "wilson_95_CI": [0.604, 0.781],
+    "mean_min_distance": 1.136,
+    "median_min_distance": 0.489,
+    "mean_whiff_fraction": 0.648,
+    "boundary_contacts": 8
+  },
+  "validation": {
+    "raw_model_parity": true,
+    "runtime_motor_parity": true,
+    "checkpoint_controller_steps": 500,
+    "checkpoint_controller_max_error": 0.0,
+    "physical_trajectory_parity_seed": 851042066,
+    "physical_trajectory_max_error": 0.0,
+    "plume_snapshot_max_error": 0.0
+  }
+}
