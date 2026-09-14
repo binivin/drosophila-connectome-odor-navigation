@@ -1,0 +1,5 @@
+outcome,trials
+both_success,60
+v3_fail_v6_success,11
+v3_success_v6_fail,10
+both_fail,19
