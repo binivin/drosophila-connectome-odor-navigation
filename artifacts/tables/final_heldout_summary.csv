@@ -1,0 +1,3 @@
+controller,successes,n_trials,success_rate,ci95_low,ci95_high,mean_min_distance,median_min_distance,mean_whiff_fraction,boundary_contacts
+v3 connectome tracking,70,100,0.70,0.604,0.781,1.136,0.489,0.648,8
+v6 tracking + casting,71,100,0.71,0.615,0.790,1.385,0.488,0.616,0
