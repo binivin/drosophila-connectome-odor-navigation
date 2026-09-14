@@ -1,16 +1,43 @@
 # Source code
 
-The validated project was developed in a research notebook and is being separated into compact runtime modules for the public release.
+This directory contains the compact public runtime and reproducibility utilities for the frozen v3 controller.
 
-The final public source layout is intended to contain modules for:
+## Files
 
-- connectome-controller loading and recurrent updates
-- sensory encoding
-- intermittent-plume environment
-- embodied-fly dynamics
-- checkpoint-driven simulation
-- visualization and figure generation
+| File | Purpose |
+|---|---|
+| `final_runtime.py` | Checkpoint-driven continuous odor-navigation runtime |
+| `verify_checkpoint.py` | SHA256 and checkpoint-metadata integrity checks |
+| `plot_final_results.py` | Recreate the frozen held-out result summary from recorded values |
 
-Only code paths that reproduce the frozen v3 controller should be required for the final release. Historical v4/v5/v6 experiments are documented as research results but do not need to be part of the minimal runtime API.
+The public runtime intentionally excludes historical experimental branches that are not required to reproduce the selected final controller. v4/v5/v6 development results remain documented in `docs/final_research_summary.md` and `artifacts/tables/development_controller_summary.csv`.
 
-The frozen checkpoint and its expected hash are documented in `artifacts/checkpoints/README.md` and `artifacts/manifests/final_runtime_manifest.json`.
+## Run one frozen v3 trial
+
+After placing the validated checkpoint at `artifacts/checkpoints/final_v3_connectome_controller.joblib`:
+
+```bash
+python src/final_runtime.py --seed 851042066
+```
+
+The runtime reconstructs bilateral FB5AB odor encoding and continuous PFN wind/body-heading encoding from metadata stored inside the checkpoint. The goal/source coordinates are never passed to the controller; they are used only for stopping and evaluation.
+
+## Verify the checkpoint
+
+```bash
+python src/verify_checkpoint.py
+```
+
+Expected SHA256:
+
+```text
+8d6b557bb592f29100fdf8d95cb3ccd91f608516f6862e3f772491461e983acc
+```
+
+## Recreate the final held-out summary
+
+```bash
+python src/plot_final_results.py
+```
+
+This uses the already-frozen held-out results and does not re-tune or re-run the 100-trial benchmark.
