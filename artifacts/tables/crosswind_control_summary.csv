@@ -1,0 +1,4 @@
+condition,successes,n_trials,success_rate
+intact,9,20,0.45
+contrast_removed,0,20,0.00
+odor_removed,0,20,0.00
