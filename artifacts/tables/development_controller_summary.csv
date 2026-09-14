@@ -1,0 +1,6 @@
+controller,successes,n_trials,success_rate,notes
+v3,20,30,0.667,final pure connectome-constrained tracking controller
+v4 temporal memory,7,30,0.233,hidden-memory teacher caused poor closed-loop transfer
+v5.1 memory-free search,1,30,0.033,offline fit did not translate to closed-loop plume reacquisition
+v6 explicit casting,22,30,0.733,hybrid behavioral controller used only during development comparison
+v6.1 selective casting,20,30,0.667,selective gate did not improve development performance
