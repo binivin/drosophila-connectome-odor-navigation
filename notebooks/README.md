@@ -1,23 +1,21 @@
 # Notebooks
 
-The validated research workflow was developed in a Jupyter notebook. For the public release, the final notebook should be copied here after removing exploratory cells that are no longer needed for reproduction.
+The public notebook is a concise final summary rather than the full exploratory development notebook.
 
-Recommended final filename:
+## Final notebook
 
 ```text
 connectome_odor_navigation_final.ipynb
 ```
 
-The public notebook should retain:
+It summarizes:
 
-- connectome subset construction
-- recurrent-controller definition
-- sensory encoding
-- plume and embodied-fly environment
-- final v3 motor readout
-- held-out evaluation summary
-- checkpoint loading
-- final checkpoint-driven simulator
-- figure-generation cells
+- the frozen 532-neuron connectome-constrained architecture
+- final held-out v3 and v6 results
+- paired outcome interpretation
+- checkpoint reproducibility metadata
+- final scientific interpretation and scope
 
-Historical exploratory branches such as v4/v5/v6 can remain documented in `docs/` rather than being required for the shortest reproduction path.
+The expensive development pipeline, failed v4/v5 extensions, and repeated model-selection experiments are documented in `docs/final_research_summary.md` instead of being required for the shortest public reproduction path.
+
+The executable frozen runtime lives in `src/final_runtime.py`.
