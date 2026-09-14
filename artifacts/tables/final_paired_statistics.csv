@@ -1,0 +1,4 @@
+metric,value,ci95_low,ci95_high
+success_rate_difference_v6_minus_v3,0.01,-0.08,0.10
+mcnemar_exact_p,1.0,,
+mean_min_distance_difference_v6_minus_v3,0.248,-0.125,0.618
