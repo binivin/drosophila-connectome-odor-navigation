@@ -7,25 +7,47 @@
 
 > Closed-loop odor-source navigation in a virtual *Drosophila* using a 532-neuron MaleCNS-derived recurrent subcircuit, modeled sensory inputs, and a learned PFL motor readout.
 
-This repository contains a connectome-constrained embodied navigation project based on a navigation-related subset of the public MaleCNS connectome. The project asks whether recurrent dynamics constrained by connectome wiring can support odor-source localization in a stochastic 2-D plume environment.
+This repository contains a connectome-constrained embodied navigation project based on a navigation-related subset of the public MaleCNS connectome. The final frozen v3 controller achieved **70/100 successes on 100 completely unseen randomized scenarios**.
 
-The final selected controller reached **70/100 successes on 100 completely unseen randomized scenarios**. The system should be interpreted as a **connectome-constrained controller**, not as a whole-brain or fully biophysical fruit-fly simulation.
+The system should be interpreted as a **connectome-constrained controller**, not as a whole-brain or fully biophysical fruit-fly simulation.
 
 ---
 
 ## Highlights
 
-- Constructed a **532-neuron MaleCNS-derived navigation-related subcircuit**.
-- Retained **5,274 recurrent edges** after synapse-threshold filtering.
-- Implemented recurrent dynamics constrained by the connectome-derived weight matrix.
-- Encoded bilateral odor input through a virtual FB5AB mapping.
-- Encoded wind direction and externally supplied body heading through PFN-related inputs.
-- Used **36 PFL2/PFL3 neurons** as the final motor-readout population.
-- Embedded the controller in a continuous 2-D virtual fly with bilateral antennae and an intermittent filament plume.
-- Evaluated the frozen v3 controller once on **100 previously unused random scenarios**.
-- Compared v3 with a hybrid explicit-casting controller using matched held-out trials.
-- Verified exact parity between the original validated runtime and the disk-loaded final checkpoint.
-- Retained unsuccessful temporal-search extensions as negative results rather than hiding them.
+- **532-neuron** MaleCNS-derived navigation-related recurrent subcircuit
+- **5,274 recurrent edges** after synapse-threshold filtering
+- bilateral odor encoding through a virtual FB5AB mapping
+- continuous PFN wind + externally supplied body-heading encoding
+- **36 PFL2/PFL3 neurons** used as the learned motor-readout population
+- continuous 2-D embodied fly with bilateral antennae and a stochastic intermittent plume
+- final v3 performance: **70/100** on 100 untouched random scenarios
+- exact checkpoint/runtime parity and exact full physical-trajectory parity
+- matched held-out comparison against an explicit behavioral casting extension
+- failed temporal/search extensions retained as negative scientific results
+
+---
+
+## Simulation demo
+
+A qualitative demo is generated directly from the **same frozen v3 checkpoint-driven runtime** used in the public release.
+
+When the media files are present, use:
+
+- [`artifacts/media/final_v3_navigation_demo.mp4`](artifacts/media/final_v3_navigation_demo.mp4) — simulation video
+- [`artifacts/media/final_v3_navigation_demo_poster.png`](artifacts/media/final_v3_navigation_demo_poster.png) — final-frame preview
+
+The demo visualizes the intermittent plume, odor source, wind direction, fly trajectory, heading, bilateral antenna positions, odor responses, distance to source, and continuous motor commands.
+
+> **Important:** the video is an illustrative frozen-v3 trial and is **not used as performance evidence**. Quantitative claims come from the frozen 100-scenario held-out benchmark below.
+
+Generate the demo from the repository root with:
+
+```bash
+python src/render_demo.py --seed 880000000
+```
+
+The default seed is a known successful trial from the already-completed frozen held-out benchmark. Choosing it for visualization does not change or re-evaluate the benchmark.
 
 ---
 
@@ -106,17 +128,9 @@ The connectome is used as a structural constraint on recurrent interactions. Neu
 
 ## Embodied virtual environment
 
-The final environment contains:
+The final environment contains continuous 2-D position, continuous heading, bilateral antennae, a stochastic intermittent filament plume, continuous forward/angular motor commands, finite arena boundaries, and randomized start/source/wind/heading conditions.
 
-- continuous 2-D fly position
-- continuous body heading
-- bilateral antenna positions
-- stochastic intermittent filament plume
-- continuous forward and angular motor commands
-- finite arena boundaries
-- randomized starting positions, odor-source positions, wind direction, and initial heading
-
-For the final benchmark, start-to-source distance was constrained to approximately **9–14 arena units**, and the start was generated roughly downwind of the odor source. Therefore, the benchmark represents **odor-source localization from randomized downwind starting conditions**, not arbitrary waypoint navigation.
+For the final benchmark, start-to-source distance was constrained to approximately **9–14 arena units**, with starts generated roughly downwind of the odor source. The benchmark therefore evaluates **odor-source localization from randomized downwind starting conditions**, not arbitrary waypoint navigation.
 
 The plume is a phenomenological filament model rather than a Navier–Stokes CFD simulation.
 
@@ -138,11 +152,7 @@ The frozen v3 controller was evaluated once on **100 completely unused random sc
 | Mean whiff fraction | 0.648 |
 | Total boundary contacts | 8 |
 
-The 100-scenario set was kept separate from the earlier 30-scenario development set.
-
 The frozen result table is available at `artifacts/tables/final_heldout_summary.csv`.
-
----
 
 ### 2. Explicit casting did not provide a reliable held-out improvement
 
@@ -153,24 +163,11 @@ A hybrid v6 controller added an explicit phenomenological casting behavior after
 | v3 connectome-constrained tracking | 70 / 100 | 70% |
 | v6 tracking + explicit casting | 71 / 100 | 71% |
 
-Paired outcomes:
+Paired outcomes were 60 both-success, 11 v3-fail/v6-success, 10 v3-success/v6-fail, and 19 both-fail. The paired success-rate difference was **+1 percentage point**, with paired bootstrap 95% CI **-8% to +10%** and exact McNemar **p = 1.000**.
 
-| Outcome | Trials |
-|---|---:|
-| Both succeeded | 60 |
-| v3 failed → v6 succeeded | 11 |
-| v3 succeeded → v6 failed | 10 |
-| Both failed | 19 |
-
-The paired success-rate difference was **+1 percentage point**, with a paired bootstrap 95% CI of **-8% to +10%** and an exact McNemar p-value of **1.000**.
-
-Because casting did not demonstrate a reliable generalization advantage and introduced an external behavioral module, **v3 was retained as the final controller**.
-
----
+Because the hybrid extension did not demonstrate a reliable generalization advantage and introduced an external behavioral module, **v3 was retained as the final controller**.
 
 ### 3. Crosswind controls supported dependence on odor information
-
-In the controlled crosswind benchmark:
 
 | Condition | Successes |
 |---|---:|
@@ -180,21 +177,13 @@ In the controlled crosswind benchmark:
 
 This supports the importance of odor information and bilateral contrast in the implemented navigation policy. However, the motor-training teacher itself contains a bilateral-contrast term, so this should **not** be interpreted as an independent biological discovery about living fly circuitry.
 
----
+### 4. Connectome perturbation and rewiring analyses
 
-### 4. Connectome perturbation and rewiring analyses supported a role for circuit structure
+Fixed-state replay analyses showed that perturbing specific connectome populations, particularly PFN-related populations, altered downstream readout features more strongly than size-matched random controls. Degree-preserving rewiring controls also produced poorer decodability than the original topology.
 
-Fixed-state replay analyses showed that perturbing specific connectome populations, particularly PFN-related populations, altered downstream readout features more strongly than size-matched random controls.
+These are model-level results and do not establish identical causal relationships in vivo.
 
-Degree-preserving rewiring controls also produced poorer decodability than the original connectome-derived topology.
-
-These results support a functional contribution of the original wiring structure **within this model**, but do not establish identical causal relationships in vivo.
-
----
-
-### 5. Temporal-search extensions produced informative negative results
-
-Several attempts to improve odor-loss behavior were unsuccessful and are retained as part of the scientific record.
+### 5. Negative results
 
 | Controller | Development successes | Interpretation |
 |---|---:|---|
@@ -210,12 +199,10 @@ These failures illustrate an important embodied-modeling lesson: **high offline 
 
 ## Reproducibility
 
-The final neural controller was frozen and reloaded from disk before the final runtime was locked.
-
-Final checkpoint filename:
+Final checkpoint:
 
 ```text
-final_v3_connectome_controller.joblib
+artifacts/checkpoints/final_v3_connectome_controller.joblib
 ```
 
 Expected SHA256:
@@ -224,7 +211,7 @@ Expected SHA256:
 8d6b557bb592f29100fdf8d95cb3ccd91f608516f6862e3f772491461e983acc
 ```
 
-Exact parity checks showed:
+Exact validation established:
 
 - recurrent matrix parity: exact
 - raw MLP/scaler parity: exact
@@ -246,6 +233,7 @@ drosophila-connectome-odor-navigation/
 ├─ .gitignore
 ├─ src/
 │  ├─ final_runtime.py
+│  ├─ render_demo.py
 │  ├─ verify_checkpoint.py
 │  ├─ plot_final_results.py
 │  └─ README.md
@@ -257,13 +245,19 @@ drosophila-connectome-odor-navigation/
 │  │  ├─ final_results_summary.svg
 │  │  ├─ final_runtime_architecture.svg
 │  │  └─ README.md
+│  ├─ media/
+│  │  ├─ final_v3_navigation_demo.mp4
+│  │  ├─ final_v3_navigation_demo_poster.png
+│  │  └─ README.md
 │  ├─ tables/
 │  │  ├─ final_heldout_summary.csv
 │  │  ├─ final_paired_outcomes.csv
+│  │  ├─ paired_statistics.csv
 │  │  ├─ crosswind_control_summary.csv
 │  │  ├─ development_controller_summary.csv
 │  │  └─ README.md
 │  ├─ checkpoints/
+│  │  ├─ final_v3_connectome_controller.joblib
 │  │  └─ README.md
 │  └─ manifests/
 │     └─ final_runtime_manifest.json
@@ -279,14 +273,6 @@ Raw MaleCNS connectome files are not redistributed through this repository. `dat
 
 ---
 
-## Data sources
-
-The project uses public MaleCNS connectome data and public neuron annotations.
-
-Required local inputs for rebuilding the connectome stage include the MaleCNS connectivity Feather file and the corresponding neuron annotation table. Raw source files should be downloaded from their original public source rather than copied into this repository.
-
----
-
 ## How to reproduce
 
 ### 1. Install dependencies
@@ -296,14 +282,6 @@ pip install -r requirements.txt
 ```
 
 ### 2. Verify the frozen checkpoint
-
-Place the validated checkpoint at:
-
-```text
-artifacts/checkpoints/final_v3_connectome_controller.joblib
-```
-
-Then run:
 
 ```bash
 python src/verify_checkpoint.py
@@ -317,15 +295,21 @@ python src/final_runtime.py --seed 851042066
 
 A different integer seed generates a new randomized start/source/wind scenario under the same frozen runtime.
 
-### 4. Recreate the held-out summary plot
+### 4. Render an illustrative simulation video
+
+```bash
+python src/render_demo.py --seed 880000000
+```
+
+This writes the MP4 and poster image under `artifacts/media/`. The demo is qualitative and does not replace the held-out benchmark.
+
+### 5. Recreate the held-out summary plot
 
 ```bash
 python src/plot_final_results.py
 ```
 
-This script visualizes the frozen result tables and does not re-tune the controller.
-
-### 5. Open the final summary notebook
+### 6. Open the final summary notebook
 
 ```text
 notebooks/connectome_odor_navigation_final.ipynb
@@ -342,16 +326,13 @@ notebooks/connectome_odor_navigation_final.ipynb
 | `docs/modeling_conventions.md` | Biological/modeling assumptions and claim boundaries |
 | `artifacts/manifests/final_runtime_manifest.json` | Frozen runtime metadata and exact checkpoint hash |
 | `artifacts/tables/` | Final held-out, control, and development result tables |
+| `artifacts/media/README.md` | Simulation-demo provenance and interpretation |
 
 ---
 
 ## Interpretation
 
-The project supports the following conclusion:
-
 > A 532-neuron MaleCNS-derived navigation-related subcircuit, combined with modeled sensory encoding and a learned PFL motor readout, can support closed-loop odor-source localization in a stochastic virtual plume environment, reaching 70% success on 100 previously unseen randomized scenarios.
-
-The main value of the project is not only the final success rate, but the separation between connectome-constrained recurrent dynamics, modeled sensory interfaces, a learned motor readout, embodied closed-loop testing, perturbation controls, rewiring controls, failed extensions, and final held-out validation.
 
 ---
 
@@ -360,7 +341,7 @@ The main value of the project is not only the final success rate, but the separa
 - This is a **532-neuron navigation-related subcircuit**, not the complete fly CNS or brain.
 - Acetylcholine was modeled as excitatory and glutamate as inhibitory as a simplified sign convention.
 - Connectome edges below the selected synapse threshold were removed.
-- The recurrent weight matrix was spectrally rescaled for dynamical stability.
+- The recurrent matrix was spectrally rescaled for dynamical stability.
 - PFN phase information and wind-side preferences are partly inferred or model-defined.
 - Bilateral odor is virtually mapped onto the FB5AB pair; this is not claimed as established antenna-to-FB5AB anatomy.
 - Body heading is supplied externally rather than generated by a reconstructed E-PG compass circuit.
@@ -373,6 +354,6 @@ The main value of the project is not only the final success rate, but the separa
 
 ## Project status
 
-The controller, held-out benchmark, checkpoint definition, and runtime parity tests are frozen. Further tuning on the existing development or held-out sets is intentionally stopped.
+The controller, held-out benchmark, checkpoint, and runtime parity tests are frozen. Further tuning on the existing development or held-out sets is intentionally stopped.
 
 The GitHub core release is organized independently of the later companion Kaggle release; public Kaggle links will be added only after the Kaggle dataset and notebook are finalized.
