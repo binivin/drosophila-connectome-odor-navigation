@@ -7,6 +7,7 @@ This directory contains the compact public runtime and reproducibility utilities
 | File | Purpose |
 |---|---|
 | `final_runtime.py` | Checkpoint-driven continuous odor-navigation runtime |
+| `render_demo.py` | Render an illustrative MP4/poster from the frozen v3 runtime |
 | `verify_checkpoint.py` | SHA256 and checkpoint-metadata integrity checks |
 | `plot_final_results.py` | Recreate the frozen held-out result summary from recorded values |
 
@@ -14,13 +15,26 @@ The public runtime intentionally excludes historical experimental branches that 
 
 ## Run one frozen v3 trial
 
-After placing the validated checkpoint at `artifacts/checkpoints/final_v3_connectome_controller.joblib`:
-
 ```bash
 python src/final_runtime.py --seed 851042066
 ```
 
-The runtime reconstructs bilateral FB5AB odor encoding and continuous PFN wind/body-heading encoding from metadata stored inside the checkpoint. The goal/source coordinates are never passed to the controller; they are used only for stopping and evaluation.
+The runtime reconstructs bilateral FB5AB odor encoding and continuous PFN wind/body-heading encoding from metadata stored inside the frozen checkpoint. Goal/source coordinates are never passed to the controller; they are used only for stopping and evaluation.
+
+## Render an illustrative simulation demo
+
+```bash
+python src/render_demo.py --seed 880000000
+```
+
+This generates:
+
+```text
+artifacts/media/final_v3_navigation_demo.mp4
+artifacts/media/final_v3_navigation_demo_poster.png
+```
+
+The default seed is a known successful trial from the already-completed frozen held-out benchmark. The resulting video is **qualitative only** and is not used as performance evidence; quantitative claims remain based on the frozen 100-scenario held-out benchmark.
 
 ## Verify the checkpoint
 
